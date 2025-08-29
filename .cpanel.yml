@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/xasscpsq/app.dewabot.com/
+    - /bin/cp -R * ${DEPLOYPATH}
