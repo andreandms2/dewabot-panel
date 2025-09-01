@@ -7,16 +7,17 @@ use App\Models\Worker;
 use Illuminate\Http\Request;
 
 
+
 class DashboardController extends Controller
 {
     public function index()
-    {
-	// Ambil semua data worker dari database
-	$workers = Worker::all();	
+{
+    // 1. Ambil semua data worker dari database
+    $workers = \App\Models\Worker::all();
 
-	 // Kirim data 'workers' ke view
-        return view('admin.dashboard');
-    }
+    // 2. Kirim data '$workers' ke view (BAGIAN INI YANG PALING PENTING)
+    return view('admin.dashboard', ['workers' => $workers]);
+}
 
 public function store(Request $request)
     {
