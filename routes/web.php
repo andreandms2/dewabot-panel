@@ -1,25 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DashboardController; // <-- DIPINDAHKAN KE ATAS
+use App\Http\Controllers\Admin\DashboardController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Di sinilah Anda bisa mendaftarkan rute web untuk aplikasi Anda. Rute-rute
-| ini dimuat oleh RouteServiceProvider dan semuanya akan
-| ditetapkan ke grup middleware "web". Buat sesuatu yang hebat!
-|
-*/
+// Cek domain apa yang sedang diakses oleh pengunjung
+$host = request()->getHost();
 
-// Rute ini akan melayani app.dewabot.com
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Rute ini HANYA akan melayani admin.dewabot.com
-Route::domain('admin.dewabot.com')->group(function () {
+// Jika domainnya adalah 'admin.dewabot.com', maka jalankan rute khusus admin
+if ($host == 'admin.dewabot.com') {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-});
+    
+    // Nanti semua rute untuk halaman admin lainnya kita letakkan di sini
+    
+} 
+// Jika bukan, maka jalankan rute untuk aplikasi utama (app.dewabot.com)
+else {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+}
