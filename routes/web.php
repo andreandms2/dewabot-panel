@@ -9,7 +9,8 @@ $host = request()->getHost();
 // Jika domainnya adalah 'admin.dewabot.com', maka jalankan rute khusus admin
 if ($host == 'admin.dewabot.com') {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    
+    // Rute baru untuk tombol "Simpan"
+    Route::post('/workers', [DashboardController::class, 'store'])->name('admin.workers.store');
     // Nanti semua rute untuk halaman admin lainnya kita letakkan di sini
     
 } 

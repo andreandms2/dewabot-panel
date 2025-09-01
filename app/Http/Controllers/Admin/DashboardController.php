@@ -17,4 +17,25 @@ class DashboardController extends Controller
 	 // Kirim data 'workers' ke view
         return view('admin.dashboard');
     }
+
+public function store(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'ip_address' => 'required|ip',
+            'port' => 'required|integer',
+        ]);
+
+        // Simpan data ke tabel 'workers'
+        Worker::create([
+            'name' => $request->name,
+            'ip_address' => $request->ip_address,
+            'port' => $request->port,
+            'status' => 'offline', // Status default saat pertama kali dibuat
+        ]);
+
+        // Kembali ke halaman dasbor dengan pesan sukses
+        return redirect()->route('admin.dashboard')->with('success', 'Worker berhasil ditambahkan!');
+    }
 }
